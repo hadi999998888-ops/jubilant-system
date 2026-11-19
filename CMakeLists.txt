@@ -4,22 +4,22 @@ project(FoxBrawlESP CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(FoxBrawlESP WIN32
-    src/main.cpp
-    src/brawl_esp.cpp
-    third_party/imgui/imgui.cpp
-    third_party/imgui/imgui_draw.cpp
-    third_party/imgui/imgui_tables.cpp
-    third_party/imgui/imgui_widgets.cpp
-    third_party/imgui/backends/imgui_impl_win32.cpp
-    third_party/imgui/backends/imgui_impl_dx11.cpp
+# Все исходники в корне — без папок
+set(SOURCES
+    main.cpp
+    brawl_esp.cpp
+    imgui.cpp
+    imgui_draw.cpp
+    imgui_tables.cpp
+    imgui_widgets.cpp
+    imgui_impl_win32.cpp
+    imgui_impl_dx11.cpp
 )
 
-target_include_directories(FoxBrawlESP PRIVATE
-    src
-    third_party/imgui
-    third_party/imgui/backends
-)
+add_executable(FoxBrawlESP WIN32 ${SOURCES})
+
+# Инклюды — тоже всё в корне
+target_include_directories(FoxBrawlESP PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_link_libraries(FoxBrawlESP PRIVATE d3d11 dwmapi psapi)
 
